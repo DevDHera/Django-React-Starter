@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 
 import { Provider as AlertProvider } from 'react-alert';
-import AlertTemplate from 'react-alert-template-basic'
+import AlertTemplate from 'react-alert-template-basic';
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 
 import Header from './layout/Header';
 import Dashboard from './leads/Dashboard';
@@ -22,13 +23,17 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <AlertProvider template={AlertTemplate} {...alertOptions}>
-                    <Fragment>
-                        <Header />
-                        <Alerts />
-                        <div className="container">
-                            <Dashboard />
-                        </div>
-                    </Fragment>
+                    <Router>
+                        <Fragment>
+                            <Header />
+                            <Alerts />
+                            <div className="container">
+                                <Switch>
+                                    <Route exact path="/" component={Dashboard} />
+                                </Switch>
+                            </div>
+                        </Fragment>
+                    </Router>
                 </AlertProvider>
             </Provider>
         )
